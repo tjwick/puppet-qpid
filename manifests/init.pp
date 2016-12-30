@@ -48,6 +48,9 @@
 #
 # $server_store_package::     Package name for the Qpid message store
 #
+# $manage_qpidd_user::        Should the module manage the qpidd user
+#                             type:boolean, default: true
+#
 # $user_groups::              Additional user groups to add the qpidd user to
 #                             type:array
 #
@@ -70,6 +73,7 @@ class qpid (
   $ssl_cert_name           = $qpid::params::ssl_cert_name,
   $ssl_require_client_auth = $qpid::params::ssl_require_client_auth,
   $user_groups             = $qpid::params::user_groups,
+  $manage_qpidd_user       = $qpid::params::manage_qpidd_user,
   $server_packages         = $qpid::params::server_packages,
 ) inherits qpid::params {
 

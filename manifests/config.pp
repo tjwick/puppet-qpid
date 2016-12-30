@@ -4,13 +4,14 @@
 #
 class qpid::config
 {
-
-  group { $qpid::group:
-    ensure => present,
-  } ->
-  user { $qpid::user:
-    ensure => present,
-    groups => $qpid::user_groups,
+  if $qpid::manage_qpidd_user {
+    group { $qpid::group:
+      ensure => present,
+    } ->
+    user { $qpid::user:
+      ensure => present,
+      groups => $qpid::user_groups,
+    }
   }
 
   file { $qpid::config_file:
