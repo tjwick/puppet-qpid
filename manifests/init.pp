@@ -32,6 +32,9 @@
 #
 # === Advanced parameters
 #
+# $max_connections::          Maximum number of connections to allow
+#                             type:integer
+#
 # $log_to_syslog::            Log to syslog or not
 #                             type:boolean
 #
@@ -75,12 +78,17 @@ class qpid (
   $user_groups             = $qpid::params::user_groups,
   $manage_qpidd_user       = $qpid::params::manage_qpidd_user,
   $server_packages         = $qpid::params::server_packages,
+  $max_connections         = $qpid::params::max_connections,
 ) inherits qpid::params {
 
   validate_string($log_level)
   validate_bool($ssl, $auth, $log_to_syslog)
   validate_array($user_groups)
   validate_array($server_packages)
+
+  if($max_connections) {
+    validate_integer($max_connections)
+  }
 
   if $ssl {
     validate_bool($ssl_require_client_auth)
